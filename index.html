@@ -1,0 +1,80 @@
+<!--
+ * @Author: Linzjian666
+ * @Date: 2023-11-18 20:46:05
+ * @LastEditors: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
+ * @LastEditTime: 2023-11-18 21:12:14
+ * @FilePath: \undefinedd:\Desktop\atorandom\index.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机数生成器</title>
+    <style>
+        body {
+            font-family: 'Helvetica', sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        h1 {
+            font-size: 40px;
+            text-align: center;
+        }
+        input {
+            font-size: 15px;
+            padding: 5px;
+            margin: 10px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        #result {
+            font-size: 30px;
+            font-weight: bold;
+            color: green;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>随机数生成器</h1>
+    <div>
+        <label for="before">输入范围起始数:</label>
+        <input type="number" id="before" min="0" step="any">
+
+        <label for="after">输入范围终止数:</label>
+        <input type="number" id="after" min="0" step="any">
+    </div>
+    
+    <button onclick="generateRandomNumber()">生成随机数</button>
+
+    <div id="result"></div>
+
+    <script>
+        function generateRandomNumber() {
+            var before = parseInt(document.getElementById('before').value);
+            var after = parseInt(document.getElementById('after').value);
+
+            if (isNaN(before) || isNaN(after)) {
+                alert("请输入有效的数据!");
+                return;
+            }
+
+            if (before > after) {
+                alert("起始数应小于终止数!");
+                return;
+            }
+
+            var randomNum = Math.floor(Math.random() * (after - before + 1)) + before;
+            document.getElementById('result').innerText = '生成结果: ' + randomNum;
+        }
+    </script>
+
+</body>
+</html>
