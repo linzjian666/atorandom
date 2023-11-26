@@ -3,7 +3,7 @@
 Author: Linzjian666
 Date: 2023-11-18 11:45:14
 LastEditors: Linzjian666
-LastEditTime: 2023-11-26 13:21:01
+LastEditTime: 2023-11-26 14:57:09
 '''
 
 from tkinter import *
@@ -18,34 +18,6 @@ def 获取小数位数(number):
         return len(decimal_str[1])
     else:
         return 0
-
-def 获取排除数():
-    # 判断排除数是否为空
-    if filter_var.get() == '':
-        return
-    # 否则将输入数字转换为字符串并按英文逗号分割
-    else:
-        tmp = str(filter_var.get()).split(',')
-        # 判断是否有多个排除数
-        if len(tmp) > 1:
-            # 有多个排除数，遍历排除数并检查是否有非法字符
-            for i in tmp:
-                try:
-                    print(i)
-                    float(i)
-                except ValueError:
-                    messagebox.showerror("错误", "请输入有效的数据!")
-                    return
-            return tmp
-        else:
-            tmp = filter_var.get()
-            # 只有一个排除数，检查是否有非法字符
-            try:
-                float(tmp)
-            except ValueError:
-                messagebox.showerror("错误", "请输入有效的数据!")
-                return
-            return tmp
 
 def 生成随机数():
     before = before_var.get()
