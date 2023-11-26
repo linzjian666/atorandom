@@ -1,7 +1,10 @@
 # -*- coding: UTF-8 -*-
-# @Author  : Linzjian666
-# @Time    : 2023/11/18 11:45
-# @Function: Generate random number within a range
+'''
+Author: Linzjian666
+Date: 2023-11-18 11:45:14
+LastEditors: Linzjian666
+LastEditTime: 2023-11-26 13:21:01
+'''
 
 from tkinter import *
 from tkinter import messagebox
@@ -16,9 +19,39 @@ def 获取小数位数(number):
     else:
         return 0
 
+def 获取排除数():
+    # 判断排除数是否为空
+    if filter_var.get() == '':
+        return
+    # 否则将输入数字转换为字符串并按英文逗号分割
+    else:
+        tmp = str(filter_var.get()).split(',')
+        # 判断是否有多个排除数
+        if len(tmp) > 1:
+            # 有多个排除数，遍历排除数并检查是否有非法字符
+            for i in tmp:
+                try:
+                    print(i)
+                    float(i)
+                except ValueError:
+                    messagebox.showerror("错误", "请输入有效的数据!")
+                    return
+            return tmp
+        else:
+            tmp = filter_var.get()
+            # 只有一个排除数，检查是否有非法字符
+            try:
+                float(tmp)
+            except ValueError:
+                messagebox.showerror("错误", "请输入有效的数据!")
+                return
+            return tmp
+
 def 生成随机数():
     before = before_var.get()
     after = after_var.get()
+    filter_str = filter_var.get()
+    # exclude = 获取排除数()
     try:
         # 检查起始数是否大于终止数
         if float(before) > float(after):
@@ -35,7 +68,13 @@ def 生成随机数():
             after = float(after) * 10 ** decimal_places
             random_num = random.randint(int(before), int(after))
             random_num /= 10 ** decimal_places
-
+        # 将要排除的数字转换为列表
+        filter_list = [float(exclude) for exclude in filter_str.split(',') if exclude.strip()]
+        # 检查生成的随机数是否在排除列表中，如果是，则重新生成
+        while random_num in filter_list:
+            random_num = random.randint(int(before), int(after))
+            if 获取小数位数(before) > 0 or 获取小数位数(after) > 0:
+                random_num /= 10 ** decimal_places
         # 显示生成结果
         result.config(state=NORMAL)
         result.delete(0, END)
@@ -69,15 +108,23 @@ if __name__ == '__main__':
     # 范围终止数输入框
     after_lable = Label(window, bg="#ffffff", text="输入范围终止数:", bd=6,
                    font=("Helvetica", 13, "bold"), pady=5)
-    after_lable.place(x=55, y=121)
+    after_lable.place(x=55, y=105)
     after_var = StringVar()
     after_entry = Entry(window, bd=8, width=10, font="Roboto 11", textvariable=after_var)
-    after_entry.place(x=240, y=121)
-    after_lable = Label(window, bg="#ffffff", text="生成结果:", bd=6,
-                   font=("Helvetica", 15, "bold"), pady=5)
-    after_lable.place(x=55, y=200)
+    after_entry.place(x=240, y=105)
+
+    #范围排除数输入框，多个排除数以英文逗号分隔
+    filter_lable = Label(window, bg="#ffffff", text="输入排除数:", bd=6,
+                    font=("Helvetica", 13, "bold"), pady=5)
+    filter_lable.place(x=55, y=150)
+    filter_var = StringVar()
+    filter_entry = Entry(window, bd=8, width=10, font="Roboto 11", textvariable=filter_var)
+    filter_entry.place(x=240, y=150)
 
     # 生成结果框
+    result_lable = Label(window, bg="#ffffff", text="生成结果:", bd=6,
+                   font=("Helvetica", 15, "bold"), pady=5)
+    result_lable.place(x=55, y=200)
     result = Entry(window, bd=10, width=10, font=("Roboto 11", 12, "bold"), state=DISABLED)
     result.place(x=240, y=200)
 
