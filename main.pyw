@@ -3,7 +3,7 @@
 Author: Linzjian666
 Date: 2023-11-18 11:45:14
 LastEditors: Linzjian666
-LastEditTime: 2023-11-26 14:57:09
+LastEditTime: 2023-12-03 11:04:36
 '''
 
 from tkinter import *
@@ -48,6 +48,8 @@ def 生成随机数():
             if 获取小数位数(before) > 0 or 获取小数位数(after) > 0:
                 random_num /= 10 ** decimal_places
         # 显示生成结果
+        print(random_num)
+        # result['text'] = str(random_num)
         result.config(state=NORMAL)
         result.delete(0, END)
         result.insert(0, str(random_num))
@@ -56,6 +58,8 @@ def 生成随机数():
     except ValueError:
         messagebox.showerror("错误", "请输入有效的数据!")
 
+def 大输入框(title,var):
+    messagebox.showinfo("功能暂未开放", "此功能仍在开发中,敬请期待!")
 
 if __name__ == '__main__':
     # 创建主窗口
@@ -76,6 +80,8 @@ if __name__ == '__main__':
     before_var = StringVar()
     before_entry = Entry(window, bd=8, width=10, font="Roboto 11", textvariable=before_var)
     before_entry.place(x=240, y=60)
+    before_button = Button(window, text="...", command=lambda: 大输入框("输入范围起始数",before_var))
+    before_button.place(x=330, y=60)
 
     # 范围终止数输入框
     after_lable = Label(window, bg="#ffffff", text="输入范围终止数:", bd=6,
@@ -84,6 +90,8 @@ if __name__ == '__main__':
     after_var = StringVar()
     after_entry = Entry(window, bd=8, width=10, font="Roboto 11", textvariable=after_var)
     after_entry.place(x=240, y=105)
+    after_button = Button(window, text="...", command=lambda: 大输入框("输入范围终止数",after_var))
+    after_button.place(x=330, y=105)
 
     #范围排除数输入框，多个排除数以英文逗号分隔
     filter_lable = Label(window, bg="#ffffff", text="输入排除数:", bd=6,
@@ -98,6 +106,8 @@ if __name__ == '__main__':
                    font=("Helvetica", 15, "bold"), pady=5)
     result_lable.place(x=55, y=200)
     result = Entry(window, bd=10, width=10, font=("Roboto 11", 12, "bold"), state=DISABLED)
+    # result = Label(window, relief=SUNKEN, bg="#ffffff", text="", bd=8, width=10,
+    #                 font=("Roboto 11", 12, "bold"), pady=5, anchor="w")
     result.place(x=240, y=200)
 
     # 生成按钮
