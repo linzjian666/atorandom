@@ -2,7 +2,7 @@
  * @Author: Linzjian666
  * @Date: 2023-11-18 20:46:05
  * @LastEditors: Linzjian666
- * @LastEditTime: 2023-12-09 23:32:40
+ * @LastEditTime: 2023-12-10 15:16:40
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -37,6 +37,13 @@
             color: green;
             margin-top: 30px;
         }
+        #copyright {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 1px;
+        }
     </style>
 </head>
 <body>
@@ -53,6 +60,9 @@
     <button onclick="generateRandomNumber()">生成随机数</button>
 
     <div id="result"></div>
+
+    <p id="copyright">Copyright &copy; 2023 <a href="https://github.com/Linzjian666" target="_blank">Linzjian666</a>.
+        All Rights Reserved.</p>
 
     <script>
         function generateRandomNumber() {
